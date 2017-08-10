@@ -170,7 +170,6 @@
     let emailClickCounter = 0;
     let skillslClickCounter = 0;
 
-
     let newStudens = students.map(function (el) {
         return {
             name: `${el.name} ${el.lastName}`,
@@ -182,7 +181,6 @@
 
 
     function builTable(arr, titles) {
-
         let table = document.createElement('table');
         let tHead = document.createElement('thead');
         let tBody = document.createElement('tbody');
@@ -237,12 +235,7 @@
                     td.appendChild(content);
                     tr.appendChild(td);
                 }
-
-
-
-
             }
-
 
             td = document.createElement('td');
             remove = document.createElement('span');
@@ -254,13 +247,9 @@
             tr.appendChild(td);
         }
 
-
-
         table.appendChild(tHead);
         table.appendChild(tBody);
         table.classList.add('table', 'table-hover');
-
-
 
         container.appendChild(table);
     }
@@ -294,7 +283,6 @@
         resetButton.appendChild(document.createTextNode('Clear the form'));
         saveButton.appendChild(document.createTextNode('Save student'));
 
-
         nameGroup.appendChild(nameLabel);
         nameGroup.appendChild(name);
 
@@ -318,7 +306,6 @@
         name.classList.add('form-control');
 
         nameLabel.setAttribute('for', 'name');
-
 
         lastName.setAttribute('type', 'text');
         lastName.setAttribute('placeholder', 'Enter last name');
@@ -344,13 +331,12 @@
         profilePictureLabel.setAttribute('for', 'file');
 
         skills.setAttribute('type', 'text');
-        skills.setAttribute('placeholder', 'Enter skills');
+        skills.setAttribute('placeholder', 'Enter skills through the comma');
         skills.setAttribute('name', 'skills');
         skills.setAttribute('id', 'skills');
         skills.classList.add('form-control');
 
         skillsLabel.setAttribute('for', 'skills');
-
 
         resetButton.setAttribute('id', 'resetForm');
         resetButton.classList.add('btn', 'btn-danger');
@@ -365,7 +351,6 @@
         form.appendChild(skillsGroup);
         form.appendChild(resetButton);
         form.appendChild(saveButton);
-
         form.classList.add('form');
 
 
@@ -374,19 +359,13 @@
     }
 
 
-
     function formSubmit(el) {
-
         let nameValue = document.getElementById('name').value;
         let lastNameValue = document.getElementById('lastName').value;
         let emailValue = document.getElementById('email').value;
         let picturelValue = document.getElementById('file').value;
         let skillsValue = document.getElementById('skills').value;
         let mergedObj;
-        let skillsLength = skillsValue.split(' ').length;
-        let checkComma = skillsValue.match(/,/g);
-
-
         let newStuden = {
             name: `${nameValue} ${lastNameValue}`,
             email: `${emailValue}`,
@@ -394,7 +373,6 @@
             skills: skillsValue.split(',')
 
         }
-
 
         if ((/[0-9]/.test(nameValue)) ||
             (/[0-9]/.test(lastNameValue)) ||
@@ -409,10 +387,6 @@
             (!picturelValue) ||
             (!skillsValue)) {
             alert('Name and Last name cannot contains numbers, symbols, or starts with spaces or be blank');
-
-
-        } else if ((skillsLength > 1) && (checkComma === null)) {
-            alert('skills should be comma separeted');
         } else {
             newStudens.forEach(function (el, indx) {
                 if (index === indx) {
@@ -424,13 +398,11 @@
                 newStudens.push(newStuden);
             }
 
-
             buildForm();
             builTable(newStudens, titles);
 
 
-            // I had to repeat the cod below, otherwise after submitting event won't work            
-
+            // I had to repeat the cod below, otherwise after submitting events won't work            
             let submit = document.getElementById('submit');
             let clearForm = document.getElementById('resetForm');
             let form = document.getElementById('form');
@@ -439,19 +411,12 @@
             let tbody = container.querySelector('tbody');
             let thead = document.querySelector('thead');
 
-
             tbody.addEventListener('click', tableClick);
             clearForm.addEventListener('click', formReset);
             submit.addEventListener('click', formSubmit);
             thead.addEventListener('click', sort);
-
-
-
         }
-
-
     }
-
 
     function formReset(el) {
         document.getElementById('name').value = '';
@@ -469,14 +434,8 @@
             alert(`Student: ${event.target.parentNode.parentNode.firstChild.innerHTML}`);
         }
 
-
-
-
-
         Array.prototype.forEach.call(edit, function (el, indx) {
-
             if (event.target === el) {
-
                 index = indx;
                 let splitedName = el.parentNode.parentNode.childNodes[0].innerHTML.split(' ');
                 let email = el.parentNode.parentNode.childNodes[1].innerHTML;
@@ -491,11 +450,9 @@
         });
 
         Array.prototype.forEach.call(remove, function (el, indx) {
-
             if (event.target === el) {
                 alert(`Do you want to delete student: ${el.parentNode.parentNode.childNodes[0].innerHTML} forever?`);
                 newStudens.splice(indx, 1);
-
 
                 //  build form and set all event listeners
                 buildForm();
@@ -509,22 +466,15 @@
                 let tbody = container.querySelector('tbody');
                 let thead = document.querySelector('thead');
 
-
                 tbody.addEventListener('click', tableClick);
                 clearForm.addEventListener('click', formReset);
                 submit.addEventListener('click', formSubmit);
                 thead.addEventListener('click', sort);
             }
-
-
         });
-
-
     }
 
-
-
-
+    
     function sortByNameAlphabetically() {
         newStudens.sort(function (a, b) {
             if (a.name < b.name) return -1;
@@ -549,8 +499,6 @@
 
         });
     }
-
-
 
 
     //  Yes, i could just use .reverse() method for array, but what if you change data after sorting?
@@ -580,7 +528,6 @@
     }
 
 
-
     function sort(ev) {
         if ((ev.target.innerHTML !== 'Controls') &&
             (!ev.target.innerHTML.includes('Profile'))) {
@@ -592,14 +539,11 @@
                     nameClickCounter++;
 
                     sortByNameAlphabetically();
-
                 } else {
                     nameClickCounter++;
                     sortByEmailAlphabeticallyAlt();
                 }
-
-
-
+                
             } else if ((ev.target.innerHTML.includes('email')) || (ev.target.parentElement.textContent === 'email')) {
 
                 if ((emailClickCounter === 0) || (emailClickCounter % 2 === 0)) {
@@ -608,7 +552,6 @@
                     emailClickCounter++;
 
                     sortByEmailAlphabetically();
-
                 } else {
                     emailClickCounter++;
                     sortByEmailAlphabeticallyAlt();
@@ -629,15 +572,9 @@
 
             }
 
-
-
-            //  build form and set all event listeners
+            //  build form and table, set all event listeners
             buildForm();
             builTable(newStudens, titles);
-
-
-
-
 
             let submit = document.getElementById('submit');
             let clearForm = document.getElementById('resetForm');
@@ -661,7 +598,6 @@
 
             } else if ((ev.target.innerHTML.includes('email')) || (ev.target.parentElement.textContent === 'email')) {
 
-
                 if (emailClickCounter % 2 !== 0) {
                     tableHeadCell[1].childNodes[1].classList.remove('glyphicon-sort');
                     tableHeadCell[1].childNodes[1].classList.add('glyphicon-sort-by-alphabet');
@@ -672,7 +608,6 @@
 
             } else if ((ev.target.innerHTML.includes('Skills')) || (ev.target.parentElement.textContent === 'Skills')) {
 
-
                 if (skillslClickCounter % 2 !== 0) {
                     tableHeadCell[3].childNodes[1].classList.remove('glyphicon-sort');
                     tableHeadCell[3].childNodes[1].classList.add('glyphicon-sort-by-alphabet');
@@ -680,37 +615,19 @@
                     tableHeadCell[3].childNodes[1].classList.remove('glyphicon-sort-by-alphabet');
                     tableHeadCell[3].childNodes[1].classList.add('glyphicon-sort-by-alphabet-alt');
                 }
-
             }
-
-
-
-
-
-
 
             tbody.addEventListener('click', tableClick);
             clearForm.addEventListener('click', formReset);
             submit.addEventListener('click', formSubmit);
             thead.addEventListener('click', sort);
-
-
-
         }
-
-
-
-
     }
 
 
-
-
-
-    //  build form and set all event listeners
+    //  build form and table first time and setting all event listeners
     buildForm();
     builTable(newStudens, titles);
-
 
     let submit = document.getElementById('submit');
     let clearForm = document.getElementById('resetForm');
@@ -720,13 +637,8 @@
     let tbody = container.querySelector('tbody');
     let thead = document.querySelector('thead');
 
-
-
-
     tbody.addEventListener('click', tableClick);
     clearForm.addEventListener('click', formReset);
     submit.addEventListener('click', formSubmit);
     thead.addEventListener('click', sort);
-
-
 })();
