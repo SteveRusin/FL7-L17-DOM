@@ -180,6 +180,7 @@
     });
 
 
+    console.log(newStudens)
     function builTable(arr, titles) {
         let table = document.createElement('table');
         let tHead = document.createElement('thead');
@@ -381,12 +382,13 @@
             (/^\s+$/.test(emailValue)) ||
             (/^\s+$/.test(picturelValue)) ||
             (/^\s+$/.test(skillsValue)) ||
+            (!emailValue.includes('@')) ||
             (!nameValue) ||
             (!lastNameValue) ||
             (!emailValue) ||
             (!picturelValue) ||
             (!skillsValue)) {
-            alert('Name and Last name cannot contains numbers, symbols, or starts with spaces or be blank');
+            alert(`Name and Last name cannot contains numbers, symbols, or starts with spaces or be blank! And email field should contain @`);
         } else {
             newStudens.forEach(function (el, indx) {
                 if (index === indx) {
