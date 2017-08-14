@@ -451,7 +451,6 @@
 
         Array.prototype.forEach.call(remove, function (el, indx) {
             if (event.target === el) {
-                alert(`Do you want to delete student: ${el.parentNode.parentNode.childNodes[0].innerHTML} forever?`);
                 newStudens.splice(indx, 1);
 
                 //  build form and set all event listeners
